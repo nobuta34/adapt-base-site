@@ -1,0 +1,37 @@
+baseURL = "https://adapt-base.com/"
+languageCode = "ja"
+title = "adapt-base"
+theme = "PaperMod"
+
+[params]
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  ShowShareButtons = false
+  ShowBreadCrumbs = true
+  ShowPostNavLinks = true
+  ShowCodeCopyButtons = true
+
+[[menu.main]]
+  name = "Services"
+  url  = "/services/"
+  weight = 10
+[[menu.main]]
+  name = "Pricing"
+  url  = "/pricing/"
+  weight = 20
+[[menu.main]]
+  name = "How we work"
+  url  = "/how-we-work/"
+  weight = 30
+[[menu.main]]
+  name = "Cases"
+  url  = "/cases/"
+  weight = 40
+[[menu.main]]
+  name = "Insights"
+  url  = "/insights/"
+  weight = 50
+[[menu.main]]
+  name = "Contact"
+  url  = "/contact/"
+  weight = 60

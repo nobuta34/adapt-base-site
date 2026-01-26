@@ -1,0 +1,5 @@
+# Normalize line endings
+* text=auto
+
+# Keep scripts as CRLF on Windows if needed (optional)
+*.ps1 text eol=crlf
