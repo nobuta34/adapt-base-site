@@ -7,10 +7,12 @@
 <meta property="og:title" content="{{ .Title }} | adapt-base"><meta property="og:description" content="{{ .Description | default .Site.Params.description }}"><meta property="og:type" content="website"><meta property="og:locale" content="ja_JP">
 {{ $css := resources.Get "css/site.css" | minify | fingerprint }}<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
 <link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+{{ if not $preview }}{{ with .Site.Params.analytics.searchConsoleVerification }}<meta name="google-site-verification" content="{{ . }}">{{ end }}{{ end }}
 </head><body>
 <a class="skip" href="#main">本文へ移動</a>
 {{ if $preview }}<div class="preview-note">確認用サイト · 初版レビュー <span>本番は維持しています。対応範囲・条件は個別にご相談ください。</span></div>{{ end }}
 {{ partial "site-header.html" . }}
 <main id="main">{{ block "main" . }}{{ end }}</main>
 {{ partial "site-footer.html" . }}
+{{ partial "analytics.html" . }}
 </body></html>

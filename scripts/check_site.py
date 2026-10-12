@@ -25,7 +25,7 @@ for route in required:
     t=f.read_text(); p=Page(t)
     assert p.h1==1,f'{route}: must have one h1'
     assert p.noindex==preview,f'{route}: wrong indexing policy'
-    assert 'mailto:' not in t, f'{route}: pending email must not be live'
+    if route in ('contact', 'privacy'): assert 'mailto:' in t, f'{route}: missing email link'
     for href in p.links:
         u=urlsplit(href)
         if u.scheme or u.netloc or not u.path: continue
@@ -34,4 +34,4 @@ for route in required:
         assert target.exists(),f'{route}: broken link {href}'
         if u.fragment and target.suffix=='.html':
             assert u.fragment in Page(target.read_text()).ids,f'{route}: missing anchor {href}'
-print(f'PASS: {len(required)} pages; links, headings, preview indexing, pending email')
+print(f'PASS: {len(required)} pages; links, headings, preview indexing, active email')

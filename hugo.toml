@@ -43,3 +43,7 @@ theme = "PaperMod"
   name = "Contact"
   url  = "/contact/"
   weight = 60
+
+[params.analytics]
+  ga4MeasurementID = ""
+  searchConsoleVerification = ""

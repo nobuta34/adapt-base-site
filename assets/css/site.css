@@ -2,3 +2,5 @@
 
 /* Primary reading text stays at least 16px at every viewport. */
 .hero-description,.section-heading p:not(.eyebrow),.audience-card p,.audience-card li,.problem-grid p,.deliverable-grid p,.philosophy p:not(.eyebrow),.principles p,.steps p,.cta-inner p:not(.eyebrow),.prose p,.prose li,.page-aside p:not(.eyebrow){font-size:16px}
+
+[hidden]{display:none!important}.analytics-consent{position:fixed;bottom:48px;left:18px;right:18px;max-width:650px;z-index:30;background:#fff;border:1px solid var(--line);box-shadow:0 8px 35px #14253625;padding:20px;border-radius:8px}.analytics-consent p{font-size:14px}.analytics-consent a{color:var(--teal);text-decoration:underline}.analytics-consent button,.analytics-settings{font:inherit;cursor:pointer;border:1px solid var(--teal);border-radius:4px;padding:8px 12px;background:#fff;color:var(--ink);margin-right:10px}.analytics-settings{position:fixed;bottom:8px;right:8px;z-index:25;font-size:12px}.analytics-consent button:focus-visible,.analytics-settings:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
