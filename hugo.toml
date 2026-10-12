@@ -1,9 +1,17 @@
 baseURL = "https://adapt-base.com/"
 languageCode = "ja"
+defaultContentLanguage = "ja"
 title = "adapt-base"
 theme = "PaperMod"
 
+[security.funcs]
+  getenv = ['^HUGO_', '^CI$', '^CF_PAGES_BRANCH$']
+
+[markup.goldmark.extensions]
+  linkify = false
+
 [params]
+  description = "ITの課題を整理し、判断から実装・運用まで。adapt-baseのIT支援。"
   defaultTheme = "auto"
   ShowReadingTime = true
   ShowShareButtons = false
