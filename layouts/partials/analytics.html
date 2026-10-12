@@ -1,0 +1,12 @@
+{{ $production := eq (os.Getenv "CF_PAGES_BRANCH") "main" }}
+{{ $id := .Site.Params.analytics.ga4MeasurementID }}
+{{ if and $production (findRE `^G-[A-Z0-9]+$` $id) }}
+<div id="analytics-consent" class="analytics-consent" hidden role="region" aria-label="アクセス解析の設定">
+<p>サイト改善のため、Google Analyticsで閲覧・相談導線を分析します。許可しなくてもサイトを利用できます。<a href="{{ "/privacy/" | relURL }}">詳細</a></p>
+<button type="button" data-analytics-choice="accepted">解析を許可</button>
+<button type="button" data-analytics-choice="rejected">許可しない</button>
+</div>
+<button id="analytics-settings" class="analytics-settings" type="button">アクセス解析の設定</button>
+{{ $js := resources.Get "js/analytics.js" | minify | fingerprint }}
+<script defer src="{{ $js.RelPermalink }}" data-ga4-id="{{ $id }}"></script>
+{{ end }}
