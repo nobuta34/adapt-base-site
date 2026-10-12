@@ -1,0 +1,70 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: adapt-base scheduled analytics collection (no deployment yet)
+Parameters:
+  OAuthSecretArn:
+    Type: String
+    Description: Existing Secrets Manager secret with client_id/client_secret/refresh_token
+  PropertyId:
+    Type: String
+    Default: '558518317'
+  SiteUrl:
+    Type: String
+    Default: https://adapt-base.com/
+  EnableSchedule:
+    Type: String
+    Default: 'false'
+    AllowedValues: ['true', 'false']
+Conditions:
+  Scheduled: !Equals [!Ref EnableSchedule, 'true']
+Resources:
+  Results:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
+        RestrictPublicBuckets: true
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      VersioningConfiguration:
+        Status: Enabled
+  Collector:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: python3.12
+      Handler: collector.handler
+      CodeUri: .
+      Timeout: 300
+      MemorySize: 256
+      Environment:
+        Variables:
+          GA4_PROPERTY_ID: !Ref PropertyId
+          GSC_SITE_URL: !Ref SiteUrl
+          OAUTH_SECRET_ARN: !Ref OAuthSecretArn
+          OUTPUT_BUCKET: !Ref Results
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action: secretsmanager:GetSecretValue
+              Resource: !Ref OAuthSecretArn
+            - Effect: Allow
+              Action: s3:PutObject
+              Resource: !Sub '${Results.Arn}/analytics/*'
+      Events:
+        Daily:
+          Type: Schedule
+          Properties:
+            Schedule: cron(0 22 * * ? *)
+            Enabled: !If [Scheduled, true, false]
+            Description: Daily at 07:00 Japan time; collect rolling final-data window
+Outputs:
+  FunctionName:
+    Value: !Ref Collector
+  ResultsBucket:
+    Value: !Ref Results
