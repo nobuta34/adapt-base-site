@@ -45,5 +45,5 @@ theme = "PaperMod"
   weight = 60
 
 [params.analytics]
-  ga4MeasurementID = ""
-  searchConsoleVerification = ""
+  ga4MeasurementID = "G-ZMGS0R556P"
+  searchConsoleVerification = "1gWUN6jYkGyr7ZQJ5glCCMQlAAQFFgyBOiREEZvnT4Y"
