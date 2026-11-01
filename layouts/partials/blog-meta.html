@@ -1,0 +1,8 @@
+{{- if not .Params.author -}}{{ errorf "Blog article requires an approved author: %s" .Path }}{{- end -}}
+{{- if .Date.IsZero -}}{{ errorf "Blog article requires a publication date: %s" .Path }}{{- end -}}
+<div class="blog-meta">
+  <span>著者：{{ .Params.author }}</span>
+  <span>公開日：<time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "2006-01-02" }}</time></span>
+  {{ if and .Params.lastmod (.Lastmod.After .Date) }}<span>更新日：<time datetime="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Lastmod.Format "2006-01-02" }}</time></span>{{ end }}
+  {{ if .Draft }}<span class="blog-draft">下書き</span>{{ end }}
+</div>

@@ -1,0 +1,22 @@
+{{ define "main" }}
+<section class="page-hero"><div class="shell blog-width">
+  <a class="breadcrumb" href="{{ "/" | relURL }}">ホーム</a>
+  <p class="eyebrow">THOUGHTS & PRACTICE</p>
+  <h1>{{ .Title }}</h1><p>{{ .Description }}</p>
+</div></section>
+<div class="shell blog-width blog-body">
+  <div class="prose">{{ .Content }}</div>
+  <section aria-label="記事一覧" class="blog-list">
+    {{ range .RegularPages.ByDate.Reverse }}
+    <article class="blog-card">
+      <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+      {{ partial "blog-meta.html" . }}
+      {{ with .Description }}<p>{{ . }}</p>{{ end }}
+      <a class="blog-read" href="{{ .RelPermalink }}" aria-label="{{ .Title }}を読む">記事を読む →</a>
+    </article>
+    {{ else }}
+    <p class="blog-empty">記事はまだ公開されていません。公開後、このページに新しい順で掲載します。</p>
+    {{ end }}
+  </section>
+</div>
+{{ end }}
