@@ -1,0 +1,13 @@
+{{ define "main" }}
+<section class="page-hero"><div class="shell blog-width">
+  <a class="breadcrumb" href="{{ "/insights/blog/" | relURL }}">ブログ一覧へ</a>
+  <p class="eyebrow">THOUGHTS & PRACTICE</p>
+  <h1>{{ .Title }}</h1>
+  {{ partial "blog-meta.html" . }}
+  {{ with .Description }}<p>{{ . }}</p>{{ end }}
+</div></section>
+<div class="shell blog-width blog-body">
+  <article class="prose blog-prose">{{ .Content }}</article>
+  <nav class="blog-back" aria-label="記事ナビゲーション"><a href="{{ "/insights/blog/" | relURL }}">← ブログ一覧へ</a></nav>
+</div>
+{{ end }}
